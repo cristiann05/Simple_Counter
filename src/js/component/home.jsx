@@ -1,26 +1,33 @@
-import React from "react";
+// Importamos las dependencias necesarias
+import React from 'react';
+import '../../styles/index.css'; // Asegúrate de que esta ruta sea correcta para importar los estilos
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+// Creamos el componente CounterDisplay
+const CounterDisplay = ({ seconds }) => {
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+    // Convertir segundos a formato 00:00:00:00:00:00
+    // 'days', 'hours', 'minutes' y 'secs' se calculan dividiendo y sacando el residuo de 'seconds'
+    
+    // Calcula el número de días completos
+    const days = Math.floor(seconds / (24 * 3600)).toString().padStart(2, '0');
+    // Calcula el número de horas restantes después de contar los días completos
+    const hours = Math.floor((seconds % (24 * 3600)) / 3600).toString().padStart(2, '0');
+    // Calcula el número de minutos restantes después de contar las horas completas
+    const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    // Calcula el número de segundos restantes después de contar los minutos completos
+    const secs = (seconds % 60).toString().padStart(2, '0');
+    
+    // Devuelve el JSX para renderizar el componente
+    return (
+        <div className="counter-display">
+            <i className="fa fa-clock"></i>
+            <div className="display">
+                {/* Mostramos el tiempo en formato 00:00:00:00:00:00 */}
+                <span className="digit">{`${days}:${hours}:${minutes}:${secs}`}</span>
+            </div>
+        </div>
+    );
 };
 
-export default Home;
+// Exportamos el componente para que pueda ser usado en otros archivos
+export default CounterDisplay;
